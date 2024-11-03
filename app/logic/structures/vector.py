@@ -2,8 +2,14 @@ from typing import Optional
 from random import uniform
 from math import sqrt
 
+
 class Vector3:
-    def __init__(self, x: Optional[float] = None, y: Optional[float] = None, z: Optional[float] = None) -> None:
+    def __init__(
+        self,
+        x: Optional[float] = None,
+        y: Optional[float] = None,
+        z: Optional[float] = None,
+    ) -> None:
         if x is None:
             self.x: float = uniform(-1, 1)
         else:
@@ -19,17 +25,17 @@ class Vector3:
         else:
             self.z: float = z
 
-    def __add__(self, b: 'Vector3') -> 'Vector3':
+    def size(self) -> float:
+        return sqrt((self.x**2) + (self.y**2) + (self.z**2))
+
+    def __add__(self, b: "Vector3") -> "Vector3":
         return Vector3(self.x + b.x, self.y + b.y, self.z + b.z)
 
-    def __sub__(self, b: 'Vector3') -> 'Vector3':
+    def __sub__(self, b: "Vector3") -> "Vector3":
         return Vector3(self.x - b.x, self.y - b.y, self.z - self.z)
 
-    def __mul__(self, a: float) -> 'Vector3':
+    def __mul__(self, a: float) -> "Vector3":
         return Vector3(self.x * a, self.y * a, self.z * a)
 
     def __repr__(self) -> str:
-        return f'Vector3({self.x}, {self.y}, {self.z})'
-
-    def __len__(self) -> float:
-        return sqrt((self.x**2) + (self.y**2) + (self.z**2))
+        return f"Vector3({self.x}, {self.y}, {self.z})"
