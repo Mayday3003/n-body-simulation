@@ -15,6 +15,6 @@ class Body:
         self.mass: float = mass
 
     def adjust_position(self, height: float, width: float, depth: float) -> None:
-        self.position.x *= width
-        self.position.y *= height
-        self.position.z *= depth
+        self.position.x = ((self.position.x + 1) / 2) * width
+        self.position.y = ((self.position.y + 1) / 2) * height
+        self.position.z = ((self.position.z + 1) / 2) * depth
