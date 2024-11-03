@@ -4,18 +4,24 @@ from app.logic.structures.vector import Vector3
 
 class Simulation:
 
-    INITIAL_BODIES: int = 20
-    GRAVITATIONAL_CONSTANT: float = 1
-    DELTA_T: float = 0.0001
-    WIDTH: float = 500
-    HEIGHT: float = 500
-    DEPTH: float = 500
-    CUTTOF: float = 1000000
+    def __init__(
+        self,
+        initial_bodies: int = 3,
+        height: float = 500,
+        width: float = 500,
+        depth: float = 500,
+        delta_t: float = 0.0001,
+        gravitational_constant: float = 1,
+        cuttof: float = 1000000,
+    ) -> None:
 
-    def __init__(self) -> None:
-        self.bodies: list[Body] = [Body() for _ in range(Simulation.INITIAL_BODIES)]
+        self.CUTTOF: float = cuttof
+        self.GRAVITATIONAL_CONSTANT: float = gravitational_constant
+        self.DELTA_T: float = delta_t
+
+        self.bodies: list[Body] = [Body() for _ in range(initial_bodies)]
         for i in self.bodies:
-            i.adjust_position(Simulation.HEIGHT, Simulation.WIDTH, Simulation.DEPTH)
+            i.adjust_position(height, width, depth)
 
     def calculate_next_step(self):
         for i in self.bodies:
@@ -27,14 +33,14 @@ class Simulation:
                 distance_vector: Vector3 = j.position - i.position
                 magnitude_distance: float = distance_vector.size()
 
-                if magnitude_distance > Simulation.CUTTOF:
+                if magnitude_distance > self.CUTTOF:
                     continue
 
                 force_ij: Vector3 = (
                     distance_vector
                     * 1
                     * (
-                        Simulation.GRAVITATIONAL_CONSTANT
+                        self.GRAVITATIONAL_CONSTANT
                         * i.mass
                         * j.mass
                         * ((magnitude_distance + 10) ** -3)
@@ -43,5 +49,5 @@ class Simulation:
                 sum_forces_i = sum_forces_i + force_ij
 
             i.acceleration = sum_forces_i * (i.mass**-1)
-            i.velocity = i.velocity + (i.acceleration * Simulation.DELTA_T)
-            i.position = i.position + (i.velocity * Simulation.DELTA_T)
+            i.velocity = i.velocity + (i.acceleration * self.DELTA_T)
+            i.position = i.position + (i.velocity * self.DELTA_T)
