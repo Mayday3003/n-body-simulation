@@ -1,6 +1,6 @@
-from typing import Optional
-from random import uniform
 from math import sqrt
+from random import uniform
+from typing import Optional
 
 
 class Vector3:
