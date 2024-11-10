@@ -3,12 +3,11 @@ from random import uniform
 from typing import Optional
 
 
-class Vector3:
+class Vector2:
     def __init__(
         self,
         x: Optional[float] = None,
         y: Optional[float] = None,
-        z: Optional[float] = None,
     ) -> None:
         if x is None:
             self.x: float = uniform(-1, 1)
@@ -20,22 +19,17 @@ class Vector3:
         else:
             self.y: float = y
 
-        if z is None:
-            self.z: float = uniform(-1, 1)
-        else:
-            self.z: float = z
-
     def size(self) -> float:
-        return sqrt((self.x**2) + (self.y**2) + (self.z**2))
+        return sqrt((self.x**2) + (self.y**2))
 
-    def __add__(self, b: "Vector3") -> "Vector3":
-        return Vector3(self.x + b.x, self.y + b.y, self.z + b.z)
+    def __add__(self, b: "Vector2") -> "Vector2":
+        return Vector2(self.x + b.x, self.y + b.y)
 
-    def __sub__(self, b: "Vector3") -> "Vector3":
-        return Vector3(self.x - b.x, self.y - b.y, self.z - self.z)
+    def __sub__(self, b: "Vector2") -> "Vector2":
+        return Vector2(self.x - b.x, self.y - b.y)
 
-    def __mul__(self, a: float) -> "Vector3":
-        return Vector3(self.x * a, self.y * a, self.z * a)
+    def __mul__(self, a: float) -> "Vector2":
+        return Vector2(self.x * a, self.y * a)
 
     def __repr__(self) -> str:
-        return f"Vector3({self.x}, {self.y}, {self.z})"
+        return f"Vector2({self.x}, {self.y})"

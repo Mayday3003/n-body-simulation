@@ -1,5 +1,5 @@
 from app.logic.structures.body import Body
-from app.logic.structures.vector import Vector3
+from app.logic.structures.vector import Vector2
 
 
 class Simulation:
@@ -9,7 +9,6 @@ class Simulation:
         initial_bodies: int = 3,
         height: float = 500,
         width: float = 500,
-        depth: float = 500,
         delta_t: float = 0.0001,
         gravitational_constant: float = 1,
         cuttof: float = 1000000,
@@ -21,22 +20,22 @@ class Simulation:
 
         self.bodies: list[Body] = [Body() for _ in range(initial_bodies)]
         for i in self.bodies:
-            i.adjust_position(height, width, depth)
+            i.adjust_position(height, width)
 
     def calculate_next_step(self):
         for i in self.bodies:
-            sum_forces_i: Vector3 = Vector3(0, 0, 0)
+            sum_forces_i: Vector2 = Vector2(0, 0)
             for j in self.bodies:
                 if i is j:
                     continue
 
-                distance_vector: Vector3 = j.position - i.position
+                distance_vector: Vector2 = j.position - i.position
                 magnitude_distance: float = distance_vector.size()
 
                 if magnitude_distance > self.CUTTOF:
                     continue
 
-                force_ij: Vector3 = (
+                force_ij: Vector2 = (
                     distance_vector
                     * 1
                     * (
