@@ -50,3 +50,6 @@ class Simulation:
             i.acceleration = sum_forces_i * (i.mass**-1)
             i.velocity = i.velocity + (i.acceleration * self.DELTA_T)
             i.position = i.position + (i.velocity * self.DELTA_T)
+
+    def add_body(self, body: Body) -> None:
+        self.bodies.append(body)
