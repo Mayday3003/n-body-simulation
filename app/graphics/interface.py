@@ -40,9 +40,9 @@ class Interface:
             for body in self.simulation.bodies:
                 self.__draw_body(body)
 
+            pygame.display.flip()
 
             self.simulation.calculate_next_step()
-            sleep(0.5)
 
     def finish(self):
         pygame.quit()
