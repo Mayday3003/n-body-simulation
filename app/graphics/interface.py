@@ -13,7 +13,8 @@ class Interface:
         pygame.init()
         self.window = pygame.display.set_mode((width, height))
         self.simulation = Simulation(width=width, height=height)
-        
+        self.font = pygame.font.SysFont("Arial", 30)
+
     def __draw_body(self, body: Body) -> None:
         pygame.draw.circle(
             self.window, body.color, (int(body.position.x), int(body.position.y)), 5
@@ -21,7 +22,7 @@ class Interface:
 
     def init(self) -> None:
         running = True
-        start_time = time.time()  
+        start_time = time.time()
 
         while running:
             time_elapsed = time.time() - start_time
@@ -41,8 +42,15 @@ class Interface:
             for body in self.simulation.bodies:
                 self.__draw_body(body)
 
+            # draw text
+            text = self.font.render(
+                "bodies: " + str(len(self.simulation.bodies)), True, (255, 255, 255)
+            )
+            text_rect = text.get_rect(center=(60, 20))
+            self.window.blit(text, text_rect)
+
             pygame.display.flip()
-            
+
             self.simulation.calculate_next_step()
 
     def finish(self):
