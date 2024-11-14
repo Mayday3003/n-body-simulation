@@ -1,6 +1,7 @@
 from app.logic.structures.vector import Vector2
 import random
 
+
 class Body:
     def __init__(
         self,
@@ -22,12 +23,16 @@ class Body:
         self.acceleration: Vector2 = acceleration
         self.mass: float = mass
         self.color = color
-            
+
         self.__post_init__()
 
     def __post_init__(self):
         if self.color is None:
-            self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            self.color = (
+                random.randint(0, 255),
+                random.randint(0, 255),
+                random.randint(0, 255),
+            )
 
     def adjust_position(self, height: float, width: float) -> None:
         self.position.x = ((self.position.x + 1) / 2) * width
