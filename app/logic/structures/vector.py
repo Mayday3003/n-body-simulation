@@ -31,5 +31,8 @@ class Vector2:
     def __mul__(self, a: float) -> "Vector2":
         return Vector2(self.x * a, self.y * a)
 
+    def __pow__(self, a: int) -> float:
+        return (self.x**a) + (self.y**a)
+
     def __repr__(self) -> str:
         return f"Vector2({self.x}, {self.y})"
