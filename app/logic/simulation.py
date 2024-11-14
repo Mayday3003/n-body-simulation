@@ -53,3 +53,28 @@ class Simulation:
 
     def add_body(self, body: Body) -> None:
         self.bodies.append(body)
+
+    def get_kinetic_energy(self) -> float:
+        results: float = 0.0
+        for body in self.bodies:
+            results += 0.5 * body.mass * (body.velocity**2)
+        return results
+
+    def get_potential_energy(self) -> float:
+        result: float = 0.0
+        for i in range(len(self.bodies)):
+            for j in range(i, len(self.bodies)):
+                distance_vector = self.bodies[i].position - self.bodies[j].position
+                result += (
+                    -1
+                    * (
+                        self.GRAVITATIONAL_CONSTANT
+                        * self.bodies[i].mass
+                        * self.bodies[j].mass
+                    )
+                    / distance_vector.size()
+                )
+        return result
+
+    def get_total_energy(self) -> float:
+        return self.get_potential_energy() + self.get_kinetic_energy()
