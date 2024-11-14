@@ -63,17 +63,18 @@ class Simulation:
     def get_potential_energy(self) -> float:
         result: float = 0.0
         for i in range(len(self.bodies)):
-            for j in range(i, len(self.bodies)):
+            for j in range(i + 1, len(self.bodies)):
                 distance_vector = self.bodies[i].position - self.bodies[j].position
-                result += (
-                    -1
-                    * (
-                        self.GRAVITATIONAL_CONSTANT
-                        * self.bodies[i].mass
-                        * self.bodies[j].mass
+                if distance_vector != Vector2(0, 0):
+                    result += (
+                        -1
+                        * (
+                            self.GRAVITATIONAL_CONSTANT
+                            * self.bodies[i].mass
+                            * self.bodies[j].mass
+                        )
+                        / distance_vector.size()
                     )
-                    / distance_vector.size()
-                )
         return result
 
     def get_total_energy(self) -> float:
