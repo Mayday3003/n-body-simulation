@@ -43,11 +43,18 @@ class Interface:
                 self.__draw_body(body)
 
             # draw text
-            text = self.font.render(
+            text_bodies = self.font.render(
                 "bodies: " + str(len(self.simulation.bodies)), True, (255, 255, 255)
             )
-            text_rect = text.get_rect(center=(60, 20))
-            self.window.blit(text, text_rect)
+            text_energy = self.font.render(
+                "energy: " + str(self.simulation.get_total_energy()),
+                True,
+                (255, 255, 255),
+            )
+            text_energy_rect = text_energy.get_rect(center=(200, 200))
+            text_bodies_rect = text_bodies.get_rect(center=(60, 80))
+            self.window.blit(text_bodies, text_bodies_rect)
+            self.window.blit(text_energy, text_energy_rect)
 
             pygame.display.flip()
 
